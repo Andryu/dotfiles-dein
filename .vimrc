@@ -38,7 +38,10 @@ if has('vim_starting')
         "pluginの設置場所
 	  call neobundle#rc(expand('~/.vim/bundle'))
 endif	  
- 
+
+"neobundle
+NeoBundle 'Shougo/neobundle.vim'
+
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
 "Code suport
@@ -248,12 +251,12 @@ if has('autocmd')
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 
-"lightline
+" lightline
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'component': {
-      \   'readonly': '%{&readonly?"\u2b64":"}',
+      \   'readonly': '%{&readonly?"\u2b64":""}',
       \ },
       \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
       \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
-      \ }"
+      \ }
