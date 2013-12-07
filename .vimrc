@@ -39,9 +39,6 @@ if has('vim_starting')
 	  call neobundle#rc(expand('~/.vim/bundle'))
 endif	  
 
-"neobundle
-NeoBundle 'Shougo/neobundle.vim'
-
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
 "Code suport
