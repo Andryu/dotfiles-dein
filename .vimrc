@@ -33,17 +33,25 @@ au BufNewFile,BufRead * match ZenkakuSpace /　/
 set nocompatible
 filetype off
 if has('vim_starting')
-        "neobundleの設置場所
-	    set runtimepath+=~/.vim/bundle/neobundle.vim
-        "pluginの設置場所
-	  call neobundle#rc(expand('~/.vim/bundle'))
+  "neobundleの設置場所
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  "pluginの設置場所
+  call neobundle#rc(expand('~/.vim/bundle'))
+  filetype plugin indent on
+  "Installation check.
+  if neobundle#exists_not_installed_bundles()
+      echomsg 'Not installed bundles : ' .
+              \ string(neobundle#get_not_installed_bundle_names())
+      echomsg 'Please execute ":NeoBundleInstall" command.' "finish
 endif	  
 
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
 "Code suport
-NeoBundle "https://github.com/Shougo/neocomplcache.git"
-NeoBundle "https://github.com/Shougo/neosnippet.git"
+"NeoBundle 'Shougo/neocomplcache.git'
+"NeoBundle 'Shougo/neosnippet.git'
+NeoBundle "Shougo/neosnippet"
+NeoBundle "Shougo/neosnippet-snippets"
 "Color
 NeoBundle "https://github.com/altercation/vim-colors-solarized.git"
 NeoBundle 'https://github.com/tpope/vim-vividchalk.git'
@@ -71,7 +79,6 @@ autocmd QuickfixCmdPost make copen
 "power line
 NeoBundle 'itchyny/lightline.vim'
 
-filetype plugin indent on
 
 ""------------------------------------------------------------
 "neocomplcache
@@ -97,16 +104,31 @@ endif
 "------------------------------------------------------------
 "neosnippet
 "------------------------------------------------------------
+"old---------------------
+"" Plugin key-mappings.
+"imap <C-k>    <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>    <Plug>(neosnippet_expand_or_jump)
+"" For snippet_complete marker.
+"if has('conceal')
+"	set conceallevel=2 concealcursor=i
+"endif
+"" Tell Neosnippet about the other snippets
+"let g:neosnippet#snippets_directory='~/.vim/snippets'
+"------------------------
 " Plugin key-mappings.
-imap <C-k>    <Plug>(neosnippet_expand_or_jump)
-smap <C-k>    <Plug>(neosnippet_expand_or_jump)
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/snippets'
+imap      (neosnippet_expand_or_jump)
+smap      (neosnippet_expand_or_jump)
 
+" SuperTab like snippets behavior.
+imap  neosnippet#expandable_or_jumpable() ? "\(neosnippet_expand_or_jump)" : pumvisible() ? "\" : "\"
+smap  neosnippet#expandable_or_jumpable() ?"\(neosnippet_expand_or_jump)" : "\"
+
+"For snippet_complete marker.
+if has('conceal')
+      set conceallevel=2 concealcursor=i
+endif
+"Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets, ~/.vim/mysnippets'
 "------------------------------------------------------------
 "molokai
 "------------------------------------------------------------
