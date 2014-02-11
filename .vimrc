@@ -43,6 +43,7 @@ if has('vim_starting')
       echomsg 'Not installed bundles : ' .
               \ string(neobundle#get_not_installed_bundle_names())
       echomsg 'Please execute ":NeoBundleInstall" command.' "finish
+  endif
 endif	  
 
 "file manager
@@ -116,9 +117,8 @@ endif
 "let g:neosnippet#snippets_directory='~/.vim/snippets'
 "------------------------
 " Plugin key-mappings.
-imap      (neosnippet_expand_or_jump)
-smap      (neosnippet_expand_or_jump)
-
+imap <C-k>    <Plug>(neosnippet_expand_or_jump)
+smap <C-k>    <Plug>(neosnippet_expand_or_jump)
 " SuperTab like snippets behavior.
 imap  neosnippet#expandable_or_jumpable() ? "\(neosnippet_expand_or_jump)" : pumvisible() ? "\" : "\"
 smap  neosnippet#expandable_or_jumpable() ?"\(neosnippet_expand_or_jump)" : "\"
