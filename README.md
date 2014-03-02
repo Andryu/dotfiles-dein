@@ -1,7 +1,10 @@
 # Dotfiles
+install vim and setting vimrc
 
 # Usage
-./set_up
+sudo ./set_up
+vim
+:NeoBundleInstall
 
 # History
 * ver 1.0.0
