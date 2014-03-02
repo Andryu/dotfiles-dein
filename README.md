@@ -1,9 +1,13 @@
 # Dotfiles
+
 install vim and setting vimrc
 
 # Usage
+
 sudo ./set_up
+
 vim
+
 :NeoBundleInstall
 
 # History
