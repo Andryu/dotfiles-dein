@@ -1,4 +1,3 @@
-"row numberr
 set number
 "if tab clicked is white space 4
 set tabstop=4
@@ -26,6 +25,28 @@ nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 
+";でコマンド入力(; と:入れ替え)
+"noremap ; :
+"
+""全角スペースを視覚化
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
+au BufNewFile,BufRead * match ZenkakuSpace /　/
+
+"保存時に行末の空白を除去する
+"autocmd BufWritePre * :%s/\s/\+$//ge
+"保存時にtabをスペースに変換
+"autocmd BufWritePre * :%s/\t/    /ge
+"↑の設定だとカーソルが移動するので
+function! s:remove_dust()
+    let cursor = getpos(".")
+    " 保存時に行末の空白を除去する
+    %s/\s\+$//ge
+    " 保存時にtabを2スペースに変換する
+    %s/\t/  /ge
+    call setpos(".", cursor)
+    unlet cursor
+endfunction
+autocmd BufWritePre * call <SID>remove_dust()
 
 "------------------------------------------------------------
 "NeoBundle
@@ -44,13 +65,11 @@ if has('vim_starting')
               \ string(neobundle#get_not_installed_bundle_names())
       echomsg 'Please execute ":NeoBundleInstall" command.' "finish
   endif
-endif	  
+endif
 
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
 "Code suport
-"NeoBundle 'Shougo/neocomplcache.git'
-"NeoBundle 'Shougo/neosnippet.git'
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
 "Color
@@ -76,6 +95,7 @@ NeoBundle 'https://github.com/scrooloose/syntastic.git'
 NeoBundle 'JavaScript-syntax'
 NeoBundle 'pangloss/vim-javascript'
 autocmd FileType javascript :compiler gjslint
+autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen
 "power line
 NeoBundle 'itchyny/lightline.vim'
@@ -84,6 +104,7 @@ NeoBundle 'itchyny/lightline.vim'
 ""------------------------------------------------------------
 "neocomplcache
 "------------------------------------------------------------
+NeoBundle 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1
 
 let g:neocomplcache_ctags_arguments_list = {
@@ -91,8 +112,8 @@ let g:neocomplcache_ctags_arguments_list = {
     \ }
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-	\ 'default'    : '',
-	\ 'perl'       : $HOME . '/.vim/dict/perl.dict',
+  \ 'default'    : '',
+  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
     \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
     \ 'html'       : $HOME . '/.vim/dict/javascript.dict'
     \ }
@@ -111,7 +132,7 @@ endif
 "smap <C-k>    <Plug>(neosnippet_expand_or_jump)
 "" For snippet_complete marker.
 "if has('conceal')
-"	set conceallevel=2 concealcursor=i
+"  set conceallevel=2 concealcursor=i
 "endif
 "" Tell Neosnippet about the other snippets
 "let g:neosnippet#snippets_directory='~/.vim/snippets'
@@ -132,16 +153,20 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets, ~
 "------------------------------------------------------------
 "molokai
 "------------------------------------------------------------
-syntax on
 set t_Co=256
-colorscheme molokai 
+syntax on
+"colorscheme molokai
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_contrast='high'
+colorscheme solarized
 "------------------------------------------------------------
-"Zencoding <C-y> and [,] 
+"Zencoding <C-y> and [,]
 "------------------------------------------------------------
 let g:user_zen_settings = { 'indentation':'    ' }
 
 "------------------------------------------------------------
-"unite.vim 
+"unite.vim
 "------------------------------------------------------------
 " 入力モードで開始する
 " let g:unite_enable_start_insert=1
@@ -169,12 +194,12 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
 "------------------------------------------------------------
-"vim-fugitive 
+"vim-fugitive
 "------------------------------------------------------------
 set statusline+=%{fugitive#statusline()}
 
 "------------------------------------------------------------
-"NERDTreeToggle 
+"NERDTreeToggle
 "------------------------------------------------------------
 nmap <F9> :NERDTreeToggle<Enter>
 "let g:NERDTreeShowHidden=1 "隠しファイル表示
@@ -279,3 +304,10 @@ let g:lightline = {
       \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
       \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
       \ }
+
+"ruby
+"NeoBundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = {
+            \ 'mode': 'passive',
+            \ 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers  = ['rubocop']
