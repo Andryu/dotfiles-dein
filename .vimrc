@@ -21,9 +21,6 @@ inoremap <> <><LEFT>
 "Escの2回押しでハイライト消去
 nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 
-"全角スペースを視覚化
-highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au BufNewFile,BufRead * match ZenkakuSpace /　/
 
 ";でコマンド入力(; と:入れ替え)
 "noremap ; :
@@ -57,7 +54,10 @@ if has('vim_starting')
   "neobundleの設置場所
   set runtimepath+=~/.vim/bundle/neobundle.vim
   "pluginの設置場所
-  call neobundle#rc(expand('~/.vim/bundle'))
+  "  call neobundle#rc(expand('~/.vim/bundle'))
+  call neobundle#begin(expand('~/.vim/bundle'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
   filetype plugin indent on
   "Installation check.
   if neobundle#exists_not_installed_bundles()
@@ -311,3 +311,16 @@ let g:syntastic_mode_map = {
             \ 'mode': 'passive',
             \ 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers  = ['rubocop']
+
+" --------------------------------------------
+" Highlighting
+set cursorline
+augroup cch
+  autocmd! cch
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter,BufRead * set cursorline
+augroup END
+
+hi clear CursorLine
+hi CursorLine gui=underline
+highlight CursorLine ctermbg=white guibg=white
