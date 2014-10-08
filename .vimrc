@@ -22,29 +22,6 @@ inoremap <> <><LEFT>
 nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 
 
-";でコマンド入力(; と:入れ替え)
-"noremap ; :
-"
-""全角スペースを視覚化
-highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au BufNewFile,BufRead * match ZenkakuSpace /　/
-
-"保存時に行末の空白を除去する
-"autocmd BufWritePre * :%s/\s/\+$//ge
-"保存時にtabをスペースに変換
-"autocmd BufWritePre * :%s/\t/    /ge
-"↑の設定だとカーソルが移動するので
-function! s:remove_dust()
-    let cursor = getpos(".")
-    " 保存時に行末の空白を除去する
-    %s/\s\+$//ge
-    " 保存時にtabを2スペースに変換する
-    %s/\t/  /ge
-    call setpos(".", cursor)
-    unlet cursor
-endfunction
-autocmd BufWritePre * call <SID>remove_dust()
-
 "------------------------------------------------------------
 "NeoBundle
 "------------------------------------------------------------
@@ -72,13 +49,8 @@ NeoBundle "https://github.com/Shougo/unite.vim.git"
 "Code suport
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
-"Color
-NeoBundle "https://github.com/altercation/vim-colors-solarized.git"
-NeoBundle 'https://github.com/tpope/vim-vividchalk.git'
-NeoBundle 'https://github.com/Lokaltog/vim-distinguished.git'
-NeoBundle 'https://github.com/nanotech/jellybeans.vim.git'
-NeoBundle 'https://github.com/vim-scripts/candy.vim.git'
-NeoBundle 'https://github.com/dandorman/vim-colors.git'
+" Log Color
+NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 "HTML
 NeoBundle "https://github.com/mattn/zencoding-vim.git"
@@ -89,6 +61,11 @@ NeoBundle 'https://github.com/scrooloose/nerdtree.git'
 "git
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/gregsexton/gitv.git'
+" grep検索の実行時に    QuickFix list表示
+autocmd QuickFixCmdPost *grep* cwindow
+" ステータス行に現在のgitブランチを表示
+set statusline+=%{fugitive#statusline()}
+
 " check program syntax
 NeoBundle 'https://github.com/scrooloose/syntastic.git'
 " javascript
@@ -97,10 +74,22 @@ NeoBundle 'pangloss/vim-javascript'
 autocmd FileType javascript :compiler gjslint
 autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen
-"power line
-NeoBundle 'itchyny/lightline.vim'
+
+" Ruby-end
+NeoBundle 'tpope/vim-endwise'
 
 
+if filereadable(expand('~/dotfiles/settings/color.vimrc'))
+  source ~/dotfiles/settings/color.vimrc
+endif
+
+if filereadable(expand('~/dotfiles/settings/body.vimrc'))
+  source ~/dotfiles/settings/body.vimrc
+endif
+
+if filereadable(expand('~/dotfiles/settings/status.vimrc'))
+  source ~/dotfiles/settings/status.vimrc
+endif
 ""------------------------------------------------------------
 "neocomplcache
 "------------------------------------------------------------
@@ -165,35 +154,6 @@ colorscheme solarized
 "------------------------------------------------------------
 let g:user_zen_settings = { 'indentation':'    ' }
 
-"------------------------------------------------------------
-"unite.vim
-"------------------------------------------------------------
-" 入力モードで開始する
-" let g:unite_enable_start_insert=1
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-
-"------------------------------------------------------------
 "vim-fugitive
 "------------------------------------------------------------
 set statusline+=%{fugitive#statusline()}
@@ -205,105 +165,6 @@ nmap <F9> :NERDTreeToggle<Enter>
 "let g:NERDTreeShowHidden=1 "隠しファイル表示
 "let g:NERDTreeDirArrows=0
 let g:NERDTreeWinSize=25
-"------------------------------------------------------------
-"ColorRoller
-"------------------------------------------------------------
-let ColorRoller = {}
-let ColorRoller.colors = [
-      \ 'molokai',
-      \ 'vividchalk',
-      \ 'distinguished',
-      \ 'jellybeans',
-      \ 'Mustang',
-      \ 'Zenburn',
-      \ 'Wombat',
-      \ 'Tomorrow',
-      \ 'github',
-      \ 'grb256',
-      \ 'ir_black',
-      \ 'railscasts',
-      \ 'twilight',
-      \ ]
-
-function! ColorRoller.change()
-  let color = get(self.colors, 0)
-  silent exe "colorscheme " . color
-  redraw
-  echo self.colors
-endfunction
-
-function! ColorRoller.roll()
-  let item = remove(self.colors, 0)
-  call insert(self.colors, item, len(self.colors))
-  call self.change()
-endfunction
-
-function! ColorRoller.unroll()
-  let item = remove(self.colors, -1)
-  call insert(self.colors, item, 0)
-  call self.change()
-endfunction
-
-nnoremap <silent><S-C>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><S-F9> :<C-u>call ColorRoller.unroll()<CR>
-
-"------------------------------------------------------------
-"文字コード
-"------------------------------------------------------------
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
-if has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-    let &fileencodings = &fileencodings .','. s:fileencodings_default
-    unlet s:fileencodings_default
-  else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
-    else
-      let &fileencodings = &fileencodings .','. s:enc_euc
-    endif
-  endif
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
-if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-      let &fileencoding=&encoding
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-
-" lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"\u2b64":""}',
-      \ },
-      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
-      \ }
 
 "ruby
 "NeoBundle 'scrooloose/syntastic'
@@ -311,16 +172,3 @@ let g:syntastic_mode_map = {
             \ 'mode': 'passive',
             \ 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers  = ['rubocop']
-
-" --------------------------------------------
-" Highlighting
-set cursorline
-augroup cch
-  autocmd! cch
-  autocmd WinLeave * set nocursorline
-  autocmd WinEnter,BufRead * set cursorline
-augroup END
-
-hi clear CursorLine
-hi CursorLine gui=underline
-highlight CursorLine ctermbg=white guibg=white
