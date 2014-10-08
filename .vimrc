@@ -165,7 +165,7 @@ smap  neosnippet#expandable_or_jumpable() ?"\(neosnippet_expand_or_jump)" : "\"
 
 "For snippet_complete marker.
 if has('conceal')
-      set conceallevel=2 concealcursor=i
+     set conceallevel=2 concealcursor=i
 endif
 "Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets, ~/.vim/mysnippets'
@@ -179,10 +179,6 @@ set background=dark
 let g:solarized_termcolors=256
 let g:solarized_contrast='high'
 colorscheme solarized
-"------------------------------------------------------------
-"Zencoding <C-y> and [,]
-"------------------------------------------------------------
-let g:user_zen_settings = { 'indentation':'    ' }
 
 "------------------------------------------------------------
 "unite.vim
