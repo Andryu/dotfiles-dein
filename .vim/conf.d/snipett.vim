@@ -1,12 +1,5 @@
-
-
-"HTML
-NeoBundle 'mattn/emmet-vim'
-" check program syntax
-NeoBundle 'https://github.com/scrooloose/syntastic.git'
+" Coding
 " javascript
-NeoBundle 'JavaScript-syntax'
-NeoBundle 'pangloss/vim-javascript'
 autocmd FileType javascript :compiler gjslint
 autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen

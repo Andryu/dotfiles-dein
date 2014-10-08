@@ -1,12 +1,5 @@
 " Status line and it's plugin design
 
-" vim-airline
-NeoBundle 'bling/vim-airline'
-"file manager unit-vim
-NeoBundle "https://github.com/Shougo/unite.vim.git"
-" Unit.vimで最近使ったファイルを表示できるようにする
-NeoBundle "Shougo/neomru.vim"
-
 " ステータス行に現在のgitブランチを表示
 "set statusline+=%{fugitive#statusline()}
 
