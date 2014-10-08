@@ -7,6 +7,8 @@ set wildmenu
 set cursorline
 set title
 set hlsearch
+" status line
+set laststatus=2
 
 
 nmap <F7> :setfiletype html<Enter>
@@ -46,6 +48,9 @@ endif
 
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
+" Unit.vimで最近使ったファイルを表示できるようにする
+NeoBundle "Shougo/neomru.vim"
+
 "Code suport
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
@@ -53,12 +58,13 @@ NeoBundle "Shougo/neosnippet-snippets"
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 "HTML
-NeoBundle "https://github.com/mattn/zencoding-vim.git"
+NeoBundle 'mattn/emmet-vim'
+
 "
 NeoBundle "https://github.com/thinca/vim-quickrun.git"
 "file Tree
 NeoBundle 'https://github.com/scrooloose/nerdtree.git'
-"git
+"Git
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/gregsexton/gitv.git'
 " grep検索の実行時に    QuickFix list表示
@@ -74,6 +80,9 @@ NeoBundle 'pangloss/vim-javascript'
 autocmd FileType javascript :compiler gjslint
 autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen
+
+" Ruby-end
+NeoBundle 'tpope/vim-endwise'
 
 " Ruby-end
 NeoBundle 'tpope/vim-endwise'
@@ -154,9 +163,10 @@ colorscheme solarized
 "------------------------------------------------------------
 let g:user_zen_settings = { 'indentation':'    ' }
 
+"------------------------------------------------------------
 "vim-fugitive
 "------------------------------------------------------------
-set statusline+=%{fugitive#statusline()}
+"set statusline+=%{fugitive#statusline()}
 
 "------------------------------------------------------------
 "NERDTreeToggle
