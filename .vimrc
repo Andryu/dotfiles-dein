@@ -23,5 +23,5 @@ if has('vim_starting')
 endif
 
 " 分割した設定ファイルをすべて読み込む
-set rtp+=$HOME/dotfiles/settings/
-runtime! *.vimrc
+set rtp+=$HOME/dotfiles/
+runtime! .vim/*.vim
