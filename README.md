@@ -14,6 +14,11 @@ vim
 
 :NeoBundleInstall
 
+## bashrc
+
+vim ~/.bashrc
+source ~/dotfiles/alias.sh
+
 ## Notice
 open vim and alert
 
