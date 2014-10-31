@@ -7,6 +7,8 @@ set wildmenu
 set cursorline
 set title
 set hlsearch
+" status line
+set laststatus=2
 
 
 nmap <F7> :setfiletype html<Enter>
@@ -100,6 +102,9 @@ autocmd QuickFixCmdPost *grep* cwindow
 " ステータス行に現在のgitブランチを表示
 set statusline+=%{fugitive#statusline()}
 
+" vim-airline
+NeoBundle 'bling/vim-airline'
+
 " check program syntax
 NeoBundle 'https://github.com/scrooloose/syntastic.git'
 " javascript
@@ -109,7 +114,7 @@ autocmd FileType javascript :compiler gjslint
 autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen
 " power line
-NeoBundle 'itchyny/lightline.vim'
+"NeoBundle 'itchyny/lightline.vim'
 
 " Ruby-end
 NeoBundle 'tpope/vim-endwise'
@@ -211,7 +216,7 @@ au FileType unite nnoremap <silent> <buffer> <expr> <C-t> unite#do_action('tabop
 "------------------------------------------------------------
 "vim-fugitive
 "------------------------------------------------------------
-set statusline+=%{fugitive#statusline()}
+"set statusline+=%{fugitive#statusline()}
 
 "------------------------------------------------------------
 "NERDTreeToggle
