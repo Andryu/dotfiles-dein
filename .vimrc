@@ -69,6 +69,10 @@ endif
 
 "file manager
 NeoBundle "https://github.com/Shougo/unite.vim.git"
+" Unit.vimで最近使ったファイルを表示できるようにする
+NeoBundle "Shougo/neomru.vim"
+
+
 "Code suport
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
@@ -79,6 +83,8 @@ NeoBundle 'https://github.com/Lokaltog/vim-distinguished.git'
 NeoBundle 'https://github.com/nanotech/jellybeans.vim.git'
 NeoBundle 'https://github.com/vim-scripts/candy.vim.git'
 NeoBundle 'https://github.com/dandorman/vim-colors.git'
+" Log Color
+NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 "HTML
 NeoBundle "https://github.com/mattn/zencoding-vim.git"
@@ -86,9 +92,14 @@ NeoBundle "https://github.com/mattn/zencoding-vim.git"
 NeoBundle "https://github.com/thinca/vim-quickrun.git"
 "file Tree
 NeoBundle 'https://github.com/scrooloose/nerdtree.git'
-"git
+"Git
 NeoBundle 'https://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/gregsexton/gitv.git'
+" grep検索の実行時に    QuickFix list表示
+autocmd QuickFixCmdPost *grep* cwindow
+" ステータス行に現在のgitブランチを表示
+set statusline+=%{fugitive#statusline()}
+
 " check program syntax
 NeoBundle 'https://github.com/scrooloose/syntastic.git'
 " javascript
@@ -97,8 +108,11 @@ NeoBundle 'pangloss/vim-javascript'
 autocmd FileType javascript :compiler gjslint
 autocmd FileType javascript setl ts=2
 autocmd QuickfixCmdPost make copen
-"power line
+" power line
 NeoBundle 'itchyny/lightline.vim'
+
+" Ruby-end
+NeoBundle 'tpope/vim-endwise'
 
 
 ""------------------------------------------------------------
@@ -169,9 +183,9 @@ let g:user_zen_settings = { 'indentation':'    ' }
 "unite.vim
 "------------------------------------------------------------
 " 入力モードで開始する
-" let g:unite_enable_start_insert=1
+let g:unite_enable_start_insert=1
 " バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,ub :<C-u>:Unite buffer<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
@@ -185,13 +199,14 @@ nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mr
 
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 " ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" 新規タブで開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-t> unite#do_action('tabopen')
+
+" ESCキーを2回押すと終了する(工事中)
+"au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+"au FileType unite inoremap <silent> <buffer> <ESC><ESC> q
 
 "------------------------------------------------------------
 "vim-fugitive
