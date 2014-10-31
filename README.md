@@ -29,3 +29,10 @@ mv ~/.vim/bundle/zencoding ~/.vim/bundle/emmet-vim
   - 以下を追記
   - NeoBundle "Shougo/neosnippet"
   - NeoBundle "Shougo/neosnippet-snippets"
+
+* ver 1.1.0
+  - unite vim設定追加 ,ua,ub,uf -> tabopne C-t
+  - Log Color Ansi追加
+  - Ruby End追加
+  - Ggrep検索追加まだ開発途中
+
