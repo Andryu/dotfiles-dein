@@ -8,6 +8,11 @@ set cursorline
 set title
 set hlsearch
 set laststatus=2
+set nocompatible
+set backspace=indent,eol,start
+set autoindent
+set nowrap
+set ruler
 
 nmap <F7> :setfiletype html<Enter>
 inoremap <C-d> $
