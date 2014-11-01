@@ -41,3 +41,7 @@ mv ~/.vim/bundle/zencoding ~/.vim/bundle/emmet-vim
   - Ruby End追加
   - Ggrep検索追加まだ開発途中
 
+* ver 1.1.1
+  - airline追加
+  - statuslineを表示
+
