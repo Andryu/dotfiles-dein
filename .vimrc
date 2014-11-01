@@ -74,7 +74,6 @@ NeoBundle "https://github.com/Shougo/unite.vim.git"
 " Unit.vimで最近使ったファイルを表示できるようにする
 NeoBundle "Shougo/neomru.vim"
 
-
 "Code suport
 NeoBundle "Shougo/neosnippet"
 NeoBundle "Shougo/neosnippet-snippets"
@@ -89,7 +88,8 @@ NeoBundle 'https://github.com/dandorman/vim-colors.git'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 "HTML
-NeoBundle "https://github.com/mattn/zencoding-vim.git"
+NeoBundle 'mattn/emmet-vim'
+
 "
 NeoBundle "https://github.com/thinca/vim-quickrun.git"
 "file Tree
@@ -100,7 +100,7 @@ NeoBundle 'https://github.com/gregsexton/gitv.git'
 " grep検索の実行時に    QuickFix list表示
 autocmd QuickFixCmdPost *grep* cwindow
 " ステータス行に現在のgitブランチを表示
-set statusline+=%{fugitive#statusline()}
+"set statusline+=%{fugitive#statusline()}
 
 " vim-airline
 NeoBundle 'bling/vim-airline'
@@ -316,14 +316,14 @@ if has('autocmd')
 endif
 
 " lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"\u2b64":""}',
-      \ },
-      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
-      \ }
+"let g:lightline = {
+"      \ 'colorscheme': 'wombat',
+"      \ 'component': {
+"      \   'readonly': '%{&readonly?"\u2b64":""}',
+"      \ },
+"      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
+"      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" },
+"      \ }
 
 "ruby
 "NeoBundle 'scrooloose/syntastic'
@@ -344,3 +344,30 @@ augroup END
 hi clear CursorLine
 hi CursorLine gui=underline
 highlight CursorLine ctermbg=white guibg=white
+
+" Airline {{{1
+let g:airline_section_a = airline#section#create(['mode','','branch'])
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+set guifont=Ricty\ Regular\ for\ Powerline:h14
+let g:Powerline_symbols = 'fancy'
+set t_Co=256
+let g:airline_theme='badwolf'
+let g:airline_left_sep = '⮀'
+let g:airline_right_sep = '⮂'
+let g:airline_linecolumn_prefix = '⭡'
+let g:airline_branch_prefix = '⭠'
+let g:airline#extensions#tabline#left_sep = '⮀'
+let g:airline#extensions#tabline#left_alt_sep = '⮀'
+" /=Airline }}}1
+
+"let g:airline_section_b = '%{strftime("%c")}'
+"let g:airline_section_y = 'BN: %{bufnr("%")}'
+" □とか○の文字があってもカーソル位置がずれないようにする
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
+" /=other }}}1
