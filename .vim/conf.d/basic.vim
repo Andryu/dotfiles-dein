@@ -13,6 +13,7 @@ set backspace=indent,eol,start
 set autoindent
 set nowrap
 set ruler
+set timeout timeoutlen=1000 ttimeoutlen=75
 
 nmap <F7> :setfiletype html<Enter>
 inoremap <C-d> $
