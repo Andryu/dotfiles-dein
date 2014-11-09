@@ -21,6 +21,8 @@ if has('vim_starting')
 endif
 
 " Basic
+" vim-dispatch
+NeoBundle 'tpope/vim-dispatch.git'
 " Log Color
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 " Quick run
