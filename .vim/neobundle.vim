@@ -59,6 +59,9 @@ NeoBundle 'https://github.com/scrooloose/syntastic.git'
 " javascript
 NeoBundle 'JavaScript-syntax'
 NeoBundle 'pangloss/vim-javascript'
+" Ruby
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-bundler'
 " Golang
 NeoBundle 'fatih/vim-go'
 call neobundle#end()
