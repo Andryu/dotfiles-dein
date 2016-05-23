@@ -42,7 +42,9 @@ NeoBundle 'https://github.com/scrooloose/nerdtree.git'
 
 " Status Line
 " vim-airline
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 "file manager unit-vim
 NeoBundle "https://github.com/Shougo/unite.vim.git"
 " Unit.vimで最近使ったファイルを表示できるようにする
