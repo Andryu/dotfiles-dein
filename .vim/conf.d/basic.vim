@@ -4,7 +4,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set wildmenu
-set cursorline
+"set cursorline
 set title
 set hlsearch
 set laststatus=2
