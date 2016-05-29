@@ -13,7 +13,14 @@ set t_Co=256
 syntax on
 set background=dark
 let g:solarized_termcolors=256
-let g:solarized_contrast='high'
+" コントラスト　デフォルトnormal
+"let g:solarized_contrast='high'
+" 強調表示だけど、よく分からない
+"let g:solarized_hitrail=1
+" 1にしないとターミナルによっては背景色がsolarized仕様にならない
+let g:solarized_termtrans=1
+" Solarizedを強制的に256色モードにするのをOFFにする
+let g:solarized_degrade=0
 colorscheme solarized
 
 
