@@ -64,4 +64,6 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-bundler'
 " Golang
 NeoBundle 'fatih/vim-go'
+" Coffee-Script
+NeoBundle 'vim-coffee-script'
 call neobundle#end()
