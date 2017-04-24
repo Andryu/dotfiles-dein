@@ -66,4 +66,5 @@ NeoBundle 'tpope/vim-bundler'
 NeoBundle 'fatih/vim-go'
 " Coffee-Script
 NeoBundle 'vim-coffee-script'
+NeoBundle 'ngmy/vim-rubocop'
 call neobundle#end()
