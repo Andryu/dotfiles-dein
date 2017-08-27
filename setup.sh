@@ -3,7 +3,7 @@
 mkdir -p ~/.vim/bundle
 mkdir  ~/.vim/compiler
 mkdir  ~/.vim/snippets
-git clone git://github.com/Shougo/neobundle.vim  ~/.vim/bundle/neobundle.vim
+git clone https://github.com/Shougo/neobundle.vim  ~/.vim/bundle/neobundle.vim
 cp .vimrc ~/
 
 # git ブランチ名補完
