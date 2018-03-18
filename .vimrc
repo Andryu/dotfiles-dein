@@ -1,18 +1,8 @@
-" Neobundle 設定読み込み
-"if filereadable(expand('$HOME/dotfiles/.vim/neobundle.vim'))
-"    source $HOME/dotfiles/.vim/neobundle.vim
-"endif
-"
-"" 分割した設定ファイルをすべて読み込む
-"set rtp+=$HOME/dotfiles/.vim
-"runtime! conf.d/*.vim
-
 " reset augroup
-"augroup MyAutoCmd
-"  autocmd!
-"augroup END
+augroup MyAutoCmd
+autocmd!
+augroup END
 
-" ここからdein
 if &compatible
   set nocompatible
 endif
@@ -26,7 +16,6 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neosnippet')
-call dein#add('altercation/vim-colors-solarized')
 "call dein#add('scrooloose/syntastic')
 
 " (中略)
@@ -102,24 +91,20 @@ set showtabline=2
 "set termguicolors
 
 " カラースキーマ
-set background=dark
-colorscheme solarized
-syntax on
+"let g:solarized_termcolors=256
 set t_ut=
-
-"パラメータ不明
-"set transparency=15
 
 " Syntax
 " --------------------------------
 " syntastic
 " --------------------------------
+syntax on
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " --------
-" ALEの設定
+" ALEの設定 Rubocop
 " --------
 
 let g:ale_linters = {
