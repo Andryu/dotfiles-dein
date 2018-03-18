@@ -26,6 +26,7 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neosnippet')
+call dein#add('altercation/vim-colors-solarized')
 "call dein#add('scrooloose/syntastic')
 
 " (中略)
@@ -62,11 +63,28 @@ if dein#load_state(s:dein_dir)
   " 設定終了
   call dein#end()
   call dein#save_state()
+endif
 
+" プラグインの追加・削除やtomlファイルの設定を変更した後は
+" 適宜 call dein#update や call dein#clear_state を呼んでください。
+" そもそもキャッシュしなくて良いならload_state/save_stateを呼ばないようにしてください。
+
+" 2016.04.16 追記
+" load_cache -> load_state
+" save_cache -> save_state
+" となり書き方が少し変わりました。
+" 追記終わり
+
+" vimprocだけは最初にインストールしてほしい
+if dein#check_install(['vimproc'])
+  call dein#install(['vimproc'])
+endif
+" その他インストールしていないものはこちらに入れる
+if dein#check_install()
+  call dein#install()
 endif
 
 "End dein Scripts-------------------------
-
 
 set expandtab
 set tabstop=2
@@ -85,7 +103,7 @@ set showtabline=2
 
 " カラースキーマ
 set background=dark
-colorscheme solarized 
+colorscheme solarized
 syntax on
 set t_ut=
 
@@ -99,35 +117,6 @@ set t_ut=
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-" --------
-" 'vim-syntastic/syntastic'の設定内容
-" --------
-"let g:syntastic_always_populate_loc_list = 0
-"let g:syntastic_auto_loc_list = 0
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"
-"let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [
-"  \ 'ruby', 'javascript','coffee', 'scss', 'html', 'haml', 'slim', 'sh',
-"  \ 'spec', 'vim', 'zsh', 'sass', 'eruby'] }
-"
-"let g:syntastic_javascript_checkers=['eslint']
-"let g:syntastic_coffee_checkers = ['coffeelint']
-"let g:syntastic_scss_checkers = ['scss_lint']
-"let g:syntastic_ruby_checkers = ['rubocop']
-"
-"let g:syntastic_error_symbol='✗'
-"let g:syntastic_style_error_symbol = '✗'
-"let g:syntastic_warning_symbol = '⚠'
-"let g:syntastic_style_warning_symbol = '⚠'
-"
-"
-"" Rubocop
-"let g:syntastic_mode_map = { 'mode': 'passive',
-"           \ 'active_filetypes': ['ruby'] }
-"let g:syntastic_ruby_checkers = ['rubocop']
-
 
 " --------
 " ALEの設定
@@ -147,16 +136,3 @@ highlight clear ALEWarningSign
 " For Vim8
 " Macでvim8にversion upしたらbackspaceが機能しなくなった
 set backspace=indent,eol,start
-
-"let g:airline = {
-"  \'active': {
-"  \  'left': [
-"  \    ['mode', 'paste'],
-"  \    ['readonly', 'filename', 'modified', 'ale'],
-"  \  ]
-"  \},
-"  \'component_function': {
-"  \  'ale': 'ALEGetStatusLine'
-"  \}
-"\ }
-"let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
