@@ -41,7 +41,7 @@ if dein#load_state(s:dein_dir)
 
   " プラグインリストを収めた TOML ファイル
   " 予め TOML ファイル（後述）を用意しておく
-  let g:rc_dir    = expand('~/.vim/rc')
+  let g:rc_dir    = expand('~/dotfiles-dein/.vim/rc')
   let s:toml      = g:rc_dir . '/dein.toml'
   let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
@@ -65,9 +65,9 @@ endif
 " 追記終わり
 
 " vimprocだけは最初にインストールしてほしい
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
-endif
+"if dein#check_install(['vimproc'])
+"  call dein#install(['vimproc'])
+"endif
 " その他インストールしていないものはこちらに入れる
 if dein#check_install()
   call dein#install()

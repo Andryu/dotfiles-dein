@@ -4,7 +4,6 @@ yum -y install wget
 mkdir -p ~/.vim/bundle
 mkdir  ~/.vim/compiler
 mkdir  ~/.vim/snippets
-#git clone https://github.com/Shougo/neobundle.vim  ~/.vim/bundle/neobundle.vim
 cp .vimrc ~/
 
 # git ブランチ名補完
@@ -17,3 +16,8 @@ wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh ~/.g
 # deinを持ってくる
 mkdir -p ~/.vim/dein/repos/github.com/Shougo/dein.vim
 git clone https://github.com/Shougo/dein.vim.git  ~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+
+# tmux
+cp .tmux.conf ~/
+./install_tmux.sh
